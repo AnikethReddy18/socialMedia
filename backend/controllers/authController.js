@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt"
 import { validationResult, body } from "express-validator"
 import { createUser, getUser } from "../db/queries.js"
+import jwt from "jsonwebtoken"
 
 export const signupValidators = [
     body("username").isLength({min: 6}).withMessage("Username must have 6 characters atleast"),
@@ -27,5 +28,16 @@ export async function signupController(req, res){
 }
 
 export async function loginController(req, res){
-    res.send("Login")
+    const {username, password} = req.body
+    if(!username || !password) return res.sendStatus(401) 
+
+    const user = await getUser(username)
+    if(!user) return res.status(401).json({error: "Username does not exist"})
+
+    const verified = bcrypt.compareSync(password, user.password)
+    if(!verified) return res.status(401).json({error: "Wrong password"})
+
+    jwt.sign(user, process.env.SECRET, (err, token)=>{
+        res.send({token})
+    })
 }
