@@ -42,6 +42,9 @@ model Comment{
 
   authorUsername String
   postID Int
+
+  content String
+
   author User @relation(fields: [authorUsername], references: [username])
   post Post @relation(fields: [postID], references: [id])
 }

@@ -37,3 +37,11 @@ export async function likePost(username, postID) {
         }
     })
 }
+
+export async function comment(authorUsername, postID, content){
+    await prisma.comment.create({
+        data:{
+            authorUsername, postID, content
+        }
+    })
+}
