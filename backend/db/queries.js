@@ -45,3 +45,28 @@ export async function comment(authorUsername, postID, content){
         }
     })
 }
+
+export async function getAllPosts(){
+    const posts = await prisma.post.findMany({
+        include:{
+            likes: true, 
+            comments: true
+        }
+    })
+
+    return posts
+}
+
+export async function getPostsByUser(authorUsername){
+    const posts = await prisma.post.findMany({
+        where:{
+            authorUsername
+        },
+        include:{
+            likes: true, 
+            comments: true
+        }
+    })
+
+    return posts
+}
