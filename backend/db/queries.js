@@ -20,3 +20,12 @@ export async function getUser(username){
 
     return user
 }
+
+
+export async function uploadPost(content, authorUsername){
+    await prisma.post.create({
+        data: {
+            content, authorUsername
+        }
+    })
+}
