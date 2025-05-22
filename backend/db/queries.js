@@ -29,3 +29,11 @@ export async function uploadPost(content, authorUsername){
         }
     })
 }
+
+export async function likePost(username, postID) {
+    await prisma.like.create({
+        data:{
+            username, postID
+        }
+    })
+}
