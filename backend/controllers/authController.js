@@ -29,7 +29,7 @@ export async function signupController(req, res){
 
 export async function loginController(req, res){
     const {username, password} = req.body
-    if(!username || !password) return res.sendStatus(401) 
+    if(!username || !password) return res.status(401).json({error: "Fill field(s)"}) 
 
     const user = await getUser(username)
     if(!user) return res.status(401).json({error: "Username does not exist"})

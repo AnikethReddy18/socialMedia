@@ -7,7 +7,7 @@ import cors from "cors"
 const app = express()
 const PORT = process.env.PORT || 3000
 app.use(urlencoded({ extended: true }))
-app.use(cors)
+app.use(cors())
 
 app.get("/", authMiddleware, (req, res) => res.send({user: req.user}))
 app.use("/", authRouter)
