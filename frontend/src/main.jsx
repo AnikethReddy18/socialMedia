@@ -6,11 +6,16 @@ import Login from "./pages/Login.jsx"
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import PrivateRoute from "./PrivateRoute.jsx"
 import { AuthProvider } from './AuthProvider.jsx'
-
+import Signup from './pages/Signup.jsx'
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
+  },
+
+  {
+    path: "/signup",
+    element: <Signup />
   },
 
   {
