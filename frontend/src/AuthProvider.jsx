@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiClient from "./apiClient";
 import { useContext, createContext, useState, useEffect } from "react";
 
 const authContext = createContext()
@@ -8,10 +8,10 @@ export function AuthProvider({ children }) {
 
     useEffect(()=>{
         if(token){
-            axios.defaults.headers.common["Authorization"] = "Bearer " + token
+            apiClient.defaults.headers.common["Authorization"] = "Bearer " + token
             localStorage.setItem('token', token)
         } else{ 
-            delete axios.defaults.headers.common["Authorization"]
+            delete apiClient.defaults.headers.common["Authorization"]
             localStorage.removeItem('token')
         }
     },[token])

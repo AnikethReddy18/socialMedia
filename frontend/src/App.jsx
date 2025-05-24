@@ -1,7 +1,20 @@
 import { useAuth } from "./AuthProvider"
+import apiClient from "./apiClient.js"
+import { useEffect, useState } from "react"
+import Post from "./components/Post.jsx"
 
 function App() {
   const auth = useAuth()
+  const [posts, setPosts] = useState()
+
+  useEffect(()=>{
+    async function getPosts(){
+      const { data } = await apiClient.get('/post')
+      setPosts(data)
+    }
+
+    setTimeout(()=>getPosts(), 1)
+  }, [])
 
   function handleLogoutButton(){
     auth.setToken(null)
@@ -9,8 +22,8 @@ function App() {
 
   return (
     <>
-    Hello World!
     <button onClick={handleLogoutButton}>logout</button>
+    {posts && posts.map((post)=> <Post key={post.id} post={post}/>)}
     </>
   )
 }
