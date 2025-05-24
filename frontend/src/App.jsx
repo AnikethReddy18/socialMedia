@@ -2,6 +2,7 @@ import { useAuth } from "./AuthProvider"
 import apiClient from "./apiClient.js"
 import { useEffect, useState } from "react"
 import Post from "./components/Post.jsx"
+import NewPost from "./components/NewPost.jsx"
 
 function App() {
   const auth = useAuth()
@@ -23,6 +24,7 @@ function App() {
   return (
     <>
     <button onClick={handleLogoutButton}>logout</button>
+    <NewPost />
     {posts && posts.map((post)=> <Post key={post.id} post={post}/>)}
     </>
   )
