@@ -27,7 +27,7 @@ export async function commentPostController(req, res){
 
 export async function getAllPostsController(req, res){
     const posts = await getAllPosts()
-    res.send(posts)
+    res.json({posts})
 }
 
 export async function getPostsByUserController(req, res){
