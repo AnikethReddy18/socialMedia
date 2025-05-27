@@ -6,6 +6,7 @@ import Login from "./pages/Login.jsx"
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import PrivateRoute from "./PrivateRoute.jsx"
 import { AuthProvider } from './AuthProvider.jsx'
+import Profile from './pages/Profile.jsx'
 import Signup from './pages/Signup.jsx'
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
     element: <PrivateRoute />,
     children: [
       {
-        path: "/",
+        path: "",
         element: <App />
+      },
+      {
+        path:":username",
+        element: <Profile />
       }
     ]
   },
