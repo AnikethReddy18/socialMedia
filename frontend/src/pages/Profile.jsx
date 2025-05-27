@@ -5,21 +5,38 @@ import Post from "../components/Post.jsx";
 
 function Profile() {
     const [posts, setPosts] = useState([])
+    const [userData, setUserData] = useState()
     const { username } = useParams()
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         async function getPosts() {
-            const {data} = await apiClient.get(username+"/post")
+            const { data } = await apiClient.get(username + "/post")
             setPosts(data)
         }
 
-        setTimeout(()=>getPosts(), 1)
-    },[])
+        async function getUserData() {
+            const { data } = await apiClient.get("/user/" + username)
+            setUserData(data)
+        }
 
-    return ( <>
-    <h1>{username}</h1>
-    {posts && posts.map((post)=> <Post key={post.id} post={post}/>)}
-    </> );
+        setTimeout(() => getPosts(), 1)
+        setTimeout(() => getUserData(), 1)
+    }, [])
+
+    return (
+        <>
+            {userData && (
+                <>
+                    <h1>
+                        <img src={userData.profilePic} alt="profile pic" width={50} /> 
+                        {userData.firstName + " " + userData.lastName}
+                    </h1>
+                    <p>@{userData.username}</p>
+                </>
+            )}
+            {posts && posts.map((post) => <Post key={post.id} post={post} />)}
+        </>
+    );
 }
 
 export default Profile;
