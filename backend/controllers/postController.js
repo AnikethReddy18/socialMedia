@@ -1,4 +1,4 @@
-import { uploadPost, likePost, comment, getAllPosts } from "../db/queries.js";
+import { uploadPost, likePost, comment, getAllPosts, getPostsByUser } from "../db/queries.js";
 
 export async function uploadPostController(req, res){
     const { content } = req.body
@@ -32,6 +32,6 @@ export async function getAllPostsController(req, res){
 
 export async function getPostsByUserController(req, res){
     const username = req.params.username
-    const posts = await getPostsByUserController(username)
+    const posts = await getPostsByUser(username)
     res.send(posts)
 }
