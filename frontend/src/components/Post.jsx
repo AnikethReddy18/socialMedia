@@ -5,7 +5,8 @@ function Post({ post }) {
     const [comment, setComment] = useState("")
     const dilogRef = useRef(null)
 
-    async function handleEnterCommentButton() {
+    async function handleEnterCommentSubmission(e) {
+        e.preventDefault()
         await apiClient.post("/" + post.id + "/comment", { content: comment },
             {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -32,8 +33,10 @@ function Post({ post }) {
             </dialog>
             <button onClick={handleLikePostButton}>Like</button>
 
-            <input type="text" placeholder="add your comment" value={comment} onChange={(e) => setComment(e.target.value)} />
-            <button onClick={handleEnterCommentButton}>Add Comment</button>
+            <form onSubmit={handleEnterCommentSubmission}>
+                <input type="text" placeholder="add your comment" value={comment} onChange={(e) => setComment(e.target.value)} />
+                <button>Add Comment</button>
+            </form>
             <div style={{ border: "1px solid green" }}>
                 {post.comments.map((comment,index) => {
                     return (<div key={index}>
